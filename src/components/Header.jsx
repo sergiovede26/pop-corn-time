@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import "./Header.css";
 
 function Header(){
