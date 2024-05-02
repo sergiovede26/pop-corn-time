@@ -67,3 +67,9 @@ button:focus-visible {
   cursor: pointer;
   box-shadow: 5px 5px 10px 0px;
 }
+
+.badge {
+  margin: 0.20rem;
+  padding: 0.20rem;
+  background-color: #dc7c16;
+}

@@ -1,48 +1,42 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import movies from "../data/movies.json"
+import movies from "../data/movies.json";
 import { useState } from "react";
 import "./MovieList.css";
+import MovieSummary from "./MovieSummary";
 
-function MovieList(){
+function MovieList() {
+  const [moviesToDisplay, setMoviesToDisplay] = useState(movies);
 
-    const [moviesToDisplay, setMoviesToDisplay] = useState(movies);
+  const deleteMovie = (movieId) => {
+    const newList = moviesToDisplay.filter((movie) => movie.id !== movieId);
+    setMoviesToDisplay(newList);
+  };
 
-    const deleteMovie = (movieId) => {
-        console.log(`deleting movie... ${movieId}`);
-        
-        const newList = moviesToDisplay.filter(movie => movie.id !== movieId)
-            // if(movie.id === movieId) {
-            //     return false;
-            // } else {
-            //     return true;
-            // }
-        
+  let title;
+  if (moviesToDisplay.length > 0) {
+    title = <h1>Number of movies: {moviesToDisplay.length}</h1>;
+  } else {
+    title = <h1>Sorry, no movies to display</h1>;
+  }
 
-        
-
-        setMoviesToDisplay(newList)
-    }
-
-    return (
+  return (
     <>
-    <section className="MovieList">
+      <section className="MovieList">
+        {title}
 
-        <h1>Number of Movies: {moviesToDisplay.length}</h1>
-
-        {moviesToDisplay.map((movie, index) => {
-            return (
-                <div className="card" key={index}>
-                    <p>Title: {movie.title}</p>
-                    <p>Rating: {movie.rating}</p>
-                    
-                    <button className="DeleteButton" onClick={() => {deleteMovie(movie.id)}}>Delete</button>
-                </div>
-            )
+        {moviesToDisplay.map((movie) => {
+          return (
+            <MovieSummary
+              key={movie.id}
+              movieDetails={movie}
+              callbackToDelete={deleteMovie}
+            />
+          );
         })}
-    </section>
+      </section>
     </>
-    )
+  );
 }
 
 export default MovieList;
